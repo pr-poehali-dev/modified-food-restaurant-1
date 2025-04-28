@@ -41,6 +41,9 @@ const config: Config = {
       fontFamily: {
         playfair: ['Playfair Display', 'serif'],
       },
+      backgroundImage: {
+        'restaurant-pattern': "url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: '0', opacity: '0' },

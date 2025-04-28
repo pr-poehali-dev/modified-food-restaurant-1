@@ -1,98 +1,82 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
 
 interface FoodCardProps {
   id: number;
   name: string;
-  image: string;
-  description: string;
+  appearsAs: string;
+  actuallyIs: string;
   price: number;
+  image: string;
   isMystery?: boolean;
-  actualIngredients?: string;
-  visibleIngredients?: string;
 }
 
 const FoodCard = ({
   id,
   name,
-  image,
-  description,
+  appearsAs,
+  actuallyIs,
   price,
-  isMystery = false,
-  actualIngredients,
-  visibleIngredients,
+  image,
+  isMystery = false
 }: FoodCardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleAddToCart = () => {
-    // Здесь будет логика добавления в корзину
-    console.log(`Добавлено в корзину: ${name}`);
-  };
-
   return (
     <div 
-      className={`bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg overflow-hidden transition-all duration-300
-                  ${isMystery 
-                    ? 'relative border-2 border-indigo-500/50 shadow-[0_0_15px_rgba(155,135,245,0.3)]' 
-                    : 'border border-gray-800 hover:border-gray-700'}
-                  hover:shadow-xl`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`relative rounded-lg overflow-hidden shadow-lg h-full transition-all duration-300 hover:shadow-xl bg-black/80 border border-gray-800 
+        ${isMystery ? 'holographic mystery-dish' : ''}`}
     >
-      {isMystery && (
-        <div className="absolute top-3 right-3 z-10">
-          <span className="bg-indigo-600 text-white px-2 py-1 rounded-full text-xs font-bold uppercase animate-pulse">
-            Загадка
-          </span>
-        </div>
-      )}
-      
-      <div className="relative overflow-hidden h-48">
+      <div className="h-40 overflow-hidden">
         <img 
           src={image} 
           alt={name} 
-          className={`w-full h-full object-cover transition-transform duration-500 ${isHovered ? 'scale-110' : 'scale-100'}`}
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-        <div className="absolute bottom-2 right-2">
-          <span className="bg-primary text-primary-foreground px-2 py-1 rounded-md text-sm font-semibold">
-            {price} ₽
-          </span>
-        </div>
       </div>
       
       <div className="p-4">
-        <h3 className="text-lg font-bold mb-2 text-white">{name}</h3>
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="font-playfair text-lg font-bold text-white">
+            {name}
+            {isMystery && (
+              <span className="ml-2 inline-block text-primary text-sm">✧</span>
+            )}
+          </h3>
+          <span className="font-bold text-primary">
+            {price} ₽
+          </span>
+        </div>
         
-        {!isMystery && visibleIngredients && (
-          <p className="text-sm text-gray-400 mb-3">{visibleIngredients}</p>
+        {!isMystery ? (
+          <>
+            <p className="text-sm text-gray-400 mb-1">
+              <span className="text-gray-500">Выглядит как:</span> {appearsAs}
+            </p>
+            <p className="text-sm text-gray-400 mb-4">
+              <span className="text-gray-500">На самом деле:</span> {actuallyIs}
+            </p>
+          </>
+        ) : (
+          <p className="text-sm text-gray-400 mb-4 italic">
+            Состав этого блюда - загадка. Доверьтесь нашим шеф-поварам!
+          </p>
         )}
         
-        {isMystery && (
-          <p className="text-sm italic text-indigo-300 mb-3">Состав: тайна, которую вы откроете во время дегустации!</p>
-        )}
-        
-        <div className="flex justify-between items-center mt-4">
-          <Link to={`/dish/${id}`}>
-            <Button variant="outline" size="sm" className="border-gray-700 text-gray-200 hover:bg-gray-800">
-              Подробнее
-            </Button>
-          </Link>
+        <div className="flex justify-between items-center">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="text-xs border-primary text-primary hover:bg-primary hover:text-white"
+          >
+            Подробнее
+          </Button>
           <Button 
             size="sm" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            onClick={handleAddToCart}
+            className="text-xs bg-primary hover:bg-primary/90"
           >
-            <PlusCircle className="mr-1 h-4 w-4" /> В корзину
+            Заказать
           </Button>
         </div>
       </div>
-      
-      {isMystery && (
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-transparent to-indigo-500/10 opacity-60"></div>
-      )}
     </div>
   );
 };

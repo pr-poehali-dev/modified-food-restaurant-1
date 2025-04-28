@@ -9,10 +9,10 @@ import Locations from '@/components/sections/Locations';
 
 const Index = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white">
+    <div className="flex flex-col min-h-screen bg-black text-white bg-restaurant-pattern bg-fixed bg-cover bg-center before:content-[''] before:absolute before:inset-0 before:bg-black/60 before:z-0 relative">
       <Navbar />
       
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         <Hero />
         <Advantages />
         <PopularDishes />
