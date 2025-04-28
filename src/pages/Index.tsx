@@ -1,3 +1,4 @@
+import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Hero from '@/components/sections/Hero';
@@ -8,7 +9,7 @@ import Locations from '@/components/sections/Locations';
 
 const Index = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-black text-white">
       <Navbar />
       
       <main className="flex-grow">

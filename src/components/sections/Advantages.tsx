@@ -1,43 +1,48 @@
-import { ChefHat, Award, Utensils } from 'lucide-react';
+import React from 'react';
+import { UtensilsCrossed, ChefHat, Sparkles } from 'lucide-react';
+
+const advantages = [
+  {
+    id: 1,
+    title: "Вкусная кухня",
+    description: "Наши блюда создают незабываемые вкусовые сочетания, которые удивят даже самых искушенных гурманов",
+    icon: UtensilsCrossed
+  },
+  {
+    id: 2,
+    title: "Профессиональные повара",
+    description: "Команда шеф-поваров с мировым именем, владеющих техниками молекулярной и модифицированной кухни",
+    icon: ChefHat
+  },
+  {
+    id: 3,
+    title: "Уникальная атмосфера",
+    description: "Современный дизайн с голографическими проекциями создает неповторимую атмосферу для вашего гастрономического приключения",
+    icon: Sparkles
+  }
+];
 
 const Advantages = () => {
-  const advantages = [
-    {
-      icon: <ChefHat className="text-primary h-8 w-8" />,
-      title: "Профессиональные повара",
-      description: "Наши шеф-повара — мастера молекулярной кухни, создающие настоящие кулинарные иллюзии.",
-      bgColor: "bg-primary/10",
-      textColor: "text-primary"
-    },
-    {
-      icon: <Award className="text-secondary h-8 w-8" />,
-      title: "Уникальные рецепты",
-      description: "Каждое блюдо — это произведение искусства с неожиданными вкусовыми сочетаниями.",
-      bgColor: "bg-secondary/10",
-      textColor: "text-secondary"
-    },
-    {
-      icon: <Utensils className="text-accent h-8 w-8" />,
-      title: "Атмосфера волшебства",
-      description: "Современный интерьер с голографическими проекциями создаёт неповторимую атмосферу.",
-      bgColor: "bg-accent/10",
-      textColor: "text-accent"
-    }
-  ];
-
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Наши преимущества</h2>
+    <section className="py-16 bg-gray-950">
+      <div className="container mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12">
+          Наши преимущества
+        </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {advantages.map((item, index) => (
-            <div key={index} className="bg-card p-6 rounded-lg shadow-md text-center holographic">
-              <div className={`mx-auto w-16 h-16 ${item.bgColor} rounded-full flex items-center justify-center mb-4`}>
-                {item.icon}
+          {advantages.map((advantage) => (
+            <div 
+              key={advantage.id} 
+              className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all hover:shadow-[0_0_15px_rgba(155,135,245,0.2)] group"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="h-16 w-16 bg-gray-800 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <advantage.icon className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{advantage.title}</h3>
+                <p className="text-gray-400">{advantage.description}</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-muted-foreground">{item.description}</p>
             </div>
           ))}
         </div>

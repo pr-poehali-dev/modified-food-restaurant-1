@@ -33,10 +33,22 @@ const FoodCard = ({
 
   return (
     <div 
-      className={`bg-card rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl ${isMystery ? 'mystery-dish holographic' : ''}`}
+      className={`bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg overflow-hidden transition-all duration-300
+                  ${isMystery 
+                    ? 'relative border-2 border-indigo-500/50 shadow-[0_0_15px_rgba(155,135,245,0.3)]' 
+                    : 'border border-gray-800 hover:border-gray-700'}
+                  hover:shadow-xl`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {isMystery && (
+        <div className="absolute top-3 right-3 z-10">
+          <span className="bg-indigo-600 text-white px-2 py-1 rounded-full text-xs font-bold uppercase animate-pulse">
+            Загадка
+          </span>
+        </div>
+      )}
+      
       <div className="relative overflow-hidden h-48">
         <img 
           src={image} 
@@ -52,25 +64,35 @@ const FoodCard = ({
       </div>
       
       <div className="p-4">
-        <h3 className="text-lg font-bold mb-2">{name}</h3>
+        <h3 className="text-lg font-bold mb-2 text-white">{name}</h3>
         
         {!isMystery && visibleIngredients && (
-          <p className="text-sm text-muted-foreground mb-3">{visibleIngredients}</p>
+          <p className="text-sm text-gray-400 mb-3">{visibleIngredients}</p>
         )}
         
         {isMystery && (
-          <p className="text-sm italic text-secondary mb-3">Состав: тайна, которую вы откроете во время дегустации!</p>
+          <p className="text-sm italic text-indigo-300 mb-3">Состав: тайна, которую вы откроете во время дегустации!</p>
         )}
         
         <div className="flex justify-between items-center mt-4">
           <Link to={`/dish/${id}`}>
-            <Button variant="outline" size="sm">Подробнее</Button>
+            <Button variant="outline" size="sm" className="border-gray-700 text-gray-200 hover:bg-gray-800">
+              Подробнее
+            </Button>
           </Link>
-          <Button size="sm" onClick={handleAddToCart}>
+          <Button 
+            size="sm" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground"
+            onClick={handleAddToCart}
+          >
             <PlusCircle className="mr-1 h-4 w-4" /> В корзину
           </Button>
         </div>
       </div>
+      
+      {isMystery && (
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-transparent to-indigo-500/10 opacity-60"></div>
+      )}
     </div>
   );
 };

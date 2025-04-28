@@ -1,80 +1,84 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+import React from 'react';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from '@/components/ui/carousel';
+import { Button } from '@/components/ui/button';
 
 interface Promotion {
   id: number;
   title: string;
   description: string;
   image: string;
-  actionText: string;
+  buttonText: string;
+  link: string;
 }
 
 const promotions: Promotion[] = [
   {
     id: 1,
-    title: "Загадочный ужин",
-    description: "Закажите 3 блюда-сюрприза и получите десерт в подарок!",
-    image: "https://images.unsplash.com/photo-1621251203394-8c4922ca0c9d?w=800&auto=format&fit=crop",
-    actionText: "Участвовать",
+    title: "Загадочный понедельник",
+    description: "Каждый понедельник - скидка 20% на все блюда-загадки",
+    image: "https://images.unsplash.com/photo-1499715217757-2aa48ed7e593?w=1200&auto=format&fit=crop",
+    buttonText: "Узнать больше",
+    link: "/menu"
   },
   {
     id: 2,
-    title: "Ужин наоборот",
-    description: "Попробуйте наше новое меню, где десерты выглядят как основные блюда, а основные — как десерты!",
-    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=800&auto=format&fit=crop",
-    actionText: "Заказать",
+    title: "Дегустационный сет",
+    description: "5 миниатюрных блюд-сюрпризов всего за 1990₽",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&auto=format&fit=crop",
+    buttonText: "Заказать",
+    link: "/menu"
   },
   {
     id: 3,
-    title: "Мастер-класс от шефа",
-    description: "Каждый вторник — мастер-класс по приготовлению блюд-иллюзий от нашего шеф-повара",
-    image: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&auto=format&fit=crop",
-    actionText: "Записаться",
-  },
+    title: "Молекулярные коктейли",
+    description: "К каждому ужину из 3-х блюд - молекулярный коктейль в подарок",
+    image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=1200&auto=format&fit=crop",
+    buttonText: "Посмотреть меню",
+    link: "/menu"
+  }
 ];
 
 const PromotionSlider = () => {
   return (
-    <div className="relative mx-auto max-w-5xl px-4 py-6">
-      <Carousel className="w-full" opts={{ loop: true }}>
+    <div className="w-full overflow-hidden">
+      <Carousel className="w-full max-w-6xl mx-auto">
         <CarouselContent>
           {promotions.map((promo) => (
             <CarouselItem key={promo.id}>
-              <div className="relative h-[400px] rounded-xl overflow-hidden">
-                {/* Фоновое изображение */}
-                <img
-                  src={promo.image}
-                  alt={promo.title}
+              <div className="relative h-[60vh] max-h-[500px] w-full overflow-hidden rounded-xl">
+                <img 
+                  src={promo.image} 
+                  alt={promo.title} 
                   className="w-full h-full object-cover"
                 />
-                
-                {/* Градиентный оверлей */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
-                
-                {/* Контент акции */}
-                <div className="absolute inset-0 flex flex-col justify-center p-8 text-white">
-                  <div className="max-w-md">
-                    <h2 className="text-3xl font-bold mb-4 holographic">{promo.title}</h2>
-                    <p className="text-lg mb-6">{promo.description}</p>
-                    <Button 
-                      className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                    >
-                      {promo.actionText}
-                    </Button>
-                  </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8 md:p-12">
+                  <h2 className="text-white text-2xl md:text-4xl font-bold mb-3 font-playfair animate-fade-in">
+                    {promo.title}
+                  </h2>
+                  <p className="text-white/90 text-base md:text-lg mb-6 max-w-xl">
+                    {promo.description}
+                  </p>
+                  <Button 
+                    size="lg" 
+                    className="w-fit bg-primary hover:bg-primary/90 text-primary-foreground transition-all hover:scale-105"
+                  >
+                    {promo.buttonText}
+                  </Button>
                 </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4" />
-        <CarouselNext className="right-4" />
+        <div className="hidden md:block">
+          <CarouselPrevious className="left-6" />
+          <CarouselNext className="right-6" />
+        </div>
       </Carousel>
     </div>
   );
